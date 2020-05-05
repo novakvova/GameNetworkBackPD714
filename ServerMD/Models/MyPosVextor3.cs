@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ServerMD.Models
 {
-    public class MyPosVextor3
+    public class PosVextor3
     {
         public float X { get; set; }
         public float Y { get; set; }

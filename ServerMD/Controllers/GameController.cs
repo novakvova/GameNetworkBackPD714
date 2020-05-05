@@ -11,15 +11,23 @@ namespace ServerMD.Controllers
     [Produces("application/json")]
     public class GameController : ControllerBase
     {
-        public IActionResult Index()
+        private static List<Solider> list = new List<Solider>();
+        //Отримуємо дані про постріл
+        [HttpGet("{nick}")]
+        public IActionResult Index(string nick)
         {
-            var collider = new
-            {
-                pos= new MyPosVextor3 { X= -11.8f, Y=-8.2f, Z=0.0f },
-                velocity = new MyPosVextor3 { X = 14.7f, Y=17.5f, Z = 0.0f }
-            };
-
-            return Ok(collider);
+            var solider = list.SingleOrDefault(s => s.Nick == nick);
+            if (solider != null)
+                list.Remove(solider);
+            return Ok(solider);
+        }
+        //Стриляємо по обєкту
+        [HttpPost]
+        public IActionResult Post([FromBody]Solider solider)
+        {
+            if (solider != null)
+                list.Add(solider);
+            return Ok();
         }
     }
 }
